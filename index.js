@@ -31,16 +31,6 @@ function init() {
   console.log("Fortmatic is", Fortmatic);
   console.log("window.web3 is", window.web3, "window.ethereum is", window.ethereum);
 
-  // Check that the web page is run in a secure context,
-  // as otherwise MetaMask won't be available
-  if(location.protocol !== 'https:') {
-    // https://ethereum.stackexchange.com/a/62217/620
-    const alert = document.querySelector("#alert-error-https");
-    alert.style.display = "block";
-    document.querySelector("#btn-connect").setAttribute("disabled", "disabled")
-    return;
-  }
-
   // Tell Web3modal what providers we have available.
   // Built-in web browser provider (only one can exist as a time)
   // like MetaMask, Brave or Opera is added automatically by Web3modal
@@ -111,6 +101,7 @@ async function fetchAccountData() {
     // https://github.com/indutny/bn.js/
     const ethBalance = web3.utils.fromWei(balance, "ether");
     const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
+
     // Fill in the templated row and put in the document
     const clone = template.content.cloneNode(true);
     clone.querySelector(".address").textContent = address;
